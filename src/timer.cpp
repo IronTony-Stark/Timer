@@ -24,6 +24,7 @@ Timer::Timer(QObject* parent)
 
 void Timer::setInitialTime(const QString& time) {
     mInitialTime = QTime::fromString(time, kTimeFormat).msecsSinceStartOfDay();
+    mTimer.setInterval(mInitialTime);
     updateTime(mInitialTime);
 }
 

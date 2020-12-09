@@ -17,11 +17,18 @@ Window {
 
     FileDialog {
         id: fileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file")
         folder: shortcuts.home
         nameFilters: "*.wav"
         onAccepted: {
             timer.setAlarmSound(fileDialog.fileUrl)
+        }
+    }
+
+    TimeDialog {
+        id: timeDialog
+        onAccepted: {
+            timer.setInitialTime(timeDialog.getTime())
         }
     }
 
@@ -47,7 +54,7 @@ Window {
                 Layout.margins: 10
                 Layout.columnSpan: parent.columns
 
-                text: timer.isActive ? "Pause" : "Start"
+                text: timer.isActive ? qsTr("Pause") : qsTr("Start")
                 font.pointSize: 18
                 onClicked: {
                     if (timer.isActive)
@@ -62,7 +69,7 @@ Window {
                 Layout.margins: 10
 
                 enabled: timer.isActive
-                text: "Tap"
+                text: qsTr("Tap")
                 font.pointSize: 18
                 onClicked: {
                     timer.tap()
@@ -74,7 +81,7 @@ Window {
                 Layout.margins: 10
 
                 enabled: !timer.isActive
-                text: "Reset"
+                text: qsTr("Reset")
                 font.pointSize: 18
                 onClicked: {
                     timer.reset()
@@ -86,10 +93,11 @@ Window {
                 Layout.margins: 10
 
                 enabled: !timer.isActive
-                text: "Set Initial Time"
+                text: qsTr("Set Initial Time")
                 font.pointSize: 18
                 onClicked: {
-
+                    timeDialog.clear()
+                    timeDialog.open()
                 }
             }
 
@@ -98,7 +106,7 @@ Window {
                 Layout.margins: 10
 
                 enabled: !timer.isActive
-                text: "Set Timeout Sound"
+                text: qsTr("Set Timeout Sound")
                 font.pointSize: 18
                 onClicked: {
                     fileDialog.open()
