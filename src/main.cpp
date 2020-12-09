@@ -6,6 +6,8 @@ int main(int argc, char* argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    QGuiApplication::setOrganizationName("IronTony");
+    QGuiApplication::setOrganizationDomain("github.com/IronTony-Stark");
 
     QQmlApplicationEngine engine;
 
@@ -19,5 +21,5 @@ int main(int argc, char* argv[]) {
             }, Qt::QueuedConnection);
     engine.load(url);
 
-    return app.exec();
+    return QGuiApplication::exec();
 }

@@ -5,6 +5,8 @@
 #include "include/timer.h"
 
 #include <QTime>
+#include <QUrl>
+#include <QDir>
 
 static const char* const kTimeFormat = "mm:ss:zzz";
 static const int kUpdateInterval = 30;
@@ -26,7 +28,12 @@ void Timer::setInitialTime(const QString& time) {
 }
 
 void Timer::setAlarmSound(const QString& pathToSoundFile) {
-    mAlarmSoundLocation = pathToSoundFile;
+    const QUrl url(pathToSoundFile);
+    if (url.isLocalFile())
+        mAlarmSoundLocation = QDir::toNativeSeparators(url.toLocalFile());
+    else
+        mAlarmSoundLocation = pathToSoundFile;
+    QSound::play(mAlarmSoundLocation);
 }
 
 void Timer::start() {

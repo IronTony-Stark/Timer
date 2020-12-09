@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
+import QtQuick.Dialogs 1.2
 import com.irontony.timer 1.0
 
 Window {
@@ -12,6 +13,16 @@ Window {
 
     Timer {
         id: timer
+    }
+
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.home
+        nameFilters: "*.wav"
+        onAccepted: {
+            timer.setAlarmSound(fileDialog.fileUrl)
+        }
     }
 
     ColumnLayout {
@@ -90,7 +101,7 @@ Window {
                 text: "Set Timeout Sound"
                 font.pointSize: 18
                 onClicked: {
-
+                    fileDialog.open()
                 }
             }
         }
