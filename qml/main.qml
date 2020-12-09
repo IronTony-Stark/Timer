@@ -2,12 +2,17 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
+import com.irontony.timer 1.0
 
 Window {
-    width: 640
-    height: 480
+    width: 480
+    height: 640
     visible: true
     title: qsTr("Iron Timer")
+
+    Timer {
+        id: timer
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -16,7 +21,7 @@ Window {
             id: textTime
             Layout.alignment: Qt.AlignHCenter
 
-            text: qsTr("00:00:00")
+            text: timer.timeOnTimer
             font.pointSize: 48
             color: "#dc143c"
         }
@@ -31,10 +36,13 @@ Window {
                 Layout.margins: 10
                 Layout.columnSpan: parent.columns
 
-                text: "Start"
+                text: timer.isActive ? "Pause" : "Start"
                 font.pointSize: 18
                 onClicked: {
-                    console.log("Start Clicked")
+                    if (timer.isActive)
+                        timer.pause()
+                    else
+                        timer.start()
                 }
             }
 
@@ -42,10 +50,11 @@ Window {
                 Layout.fillWidth: true
                 Layout.margins: 10
 
+                enabled: timer.isActive
                 text: "Tap"
                 font.pointSize: 18
                 onClicked: {
-                    console.log("Tap Clicked")
+                    timer.tap()
                 }
             }
 
@@ -53,10 +62,11 @@ Window {
                 Layout.fillWidth: true
                 Layout.margins: 10
 
+                enabled: !timer.isActive
                 text: "Reset"
                 font.pointSize: 18
                 onClicked: {
-                    console.log("Reset Clicked")
+                    timer.reset()
                 }
             }
 
@@ -64,10 +74,11 @@ Window {
                 Layout.fillWidth: true
                 Layout.margins: 10
 
+                enabled: !timer.isActive
                 text: "Set Initial Time"
                 font.pointSize: 18
                 onClicked: {
-                    console.log("Set Initial Time Clicked")
+
                 }
             }
 
@@ -75,10 +86,11 @@ Window {
                 Layout.fillWidth: true
                 Layout.margins: 10
 
+                enabled: !timer.isActive
                 text: "Set Timeout Sound"
                 font.pointSize: 18
                 onClicked: {
-                    console.log("Set Timeout Sound Clicked")
+
                 }
             }
         }
