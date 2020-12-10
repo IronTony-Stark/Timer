@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/TimeDialog.qml</file>
+        <file>qml/TimeListModule/qmldir</file>
+        <file>qml/TimeListModule/TimeDelegate.qml</file>
+        <file>qml/TimeListModule/TimeList.qml</file>
     </qresource>
 </RCC>

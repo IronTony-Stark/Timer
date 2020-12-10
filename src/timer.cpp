@@ -2,11 +2,11 @@
 // Created by Iron Tony on 08/12/2020.
 //
 
-#include "include/timer.h"
-
 #include <QTime>
 #include <QUrl>
 #include <QDir>
+
+#include "include/timer.h"
 
 static const char* const kTimeFormat = "mm:ss:zzz";
 static const int kUpdateInterval = 30;
@@ -26,6 +26,7 @@ void Timer::setInitialTime(const QString& time) {
     mInitialTime = QTime::fromString(time, kTimeFormat).msecsSinceStartOfDay();
     mTimer.setInterval(mInitialTime);
     updateTime(mInitialTime);
+    mTimeListModel.setStringList({});
 }
 
 void Timer::setAlarmSound(const QString& pathToSoundFile) {
@@ -55,10 +56,18 @@ void Timer::pause() {
 void Timer::reset() {
     mTimer.setInterval(mInitialTime);
     updateTime(mInitialTime);
+    mTimeListModel.setStringList({});
 }
 
 void Timer::tap() {
-    // TODO tap
+    if (mTimeListModel.insertRow(0)) {
+        QModelIndex index = mTimeListModel.index(0, 0);
+        mTimeListModel.setData(index, mTimeOnTimer);
+    }
+}
+
+QStringListModel& Timer::getTimeListModel() {
+    return mTimeListModel;
 }
 
 bool Timer::isActive() const {

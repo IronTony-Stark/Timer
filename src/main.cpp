@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <include/timer.h>
+#include <QQmlContext>
+
+#include "include/timer.h"
 
 int main(int argc, char* argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -9,9 +11,14 @@ int main(int argc, char* argv[]) {
     QGuiApplication::setOrganizationName("IronTony");
     QGuiApplication::setOrganizationDomain("github.com/IronTony-Stark");
 
-    QQmlApplicationEngine engine;
+    Timer timer;
+    QStringListModel& timeListModel = timer.getTimeListModel();
 
-    qmlRegisterType<Timer>("com.irontony.timer", 1, 0, "Timer");
+    QQmlApplicationEngine engine;
+    engine.addImportPath(":/qml");
+
+    engine.rootContext()->setContextProperty(QStringLiteral("timer"), &timer);
+    engine.rootContext()->setContextProperty(QStringLiteral("timeListModel"), &timeListModel);
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

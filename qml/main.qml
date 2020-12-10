@@ -3,17 +3,14 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.2
-import com.irontony.timer 1.0
+
+import TimeListModule 1.0
 
 Window {
     width: 480
     height: 640
     visible: true
     title: qsTr("Iron Timer")
-
-    Timer {
-        id: timer
-    }
 
     FileDialog {
         id: fileDialog
@@ -42,6 +39,14 @@ Window {
             text: timer.timeOnTimer
             font.pointSize: 48
             color: "#dc143c"
+        }
+
+        TimeList {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.leftMargin: 10
+            Layout.rightMargin: 10
+            model: timeListModel
         }
 
         GridLayout {

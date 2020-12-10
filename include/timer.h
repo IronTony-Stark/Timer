@@ -6,11 +6,12 @@
 #define TIMER_TIMER_H
 
 
-#include "logger.h"
-
 #include <QObject>
 #include <QtMultimedia/QSound>
 #include <QTimer>
+#include <QStringListModel>
+
+#include "logger.h"
 
 class Timer : public QObject {
 Q_OBJECT
@@ -27,6 +28,8 @@ public:
     Q_INVOKABLE void pause();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void tap();
+
+    QStringListModel& getTimeListModel();
 
     bool isActive() const;
     const QString& getTimeOnTimer() const;
@@ -45,6 +48,7 @@ private:
     QString mTimeOnTimer;
     int mInitialTime = 5000;
     QString mAlarmSoundLocation = "../sound/beep.wav";
+    QStringListModel mTimeListModel;
     Logger mLogger;
 
     void updateTime(int remainingTimeMs);
