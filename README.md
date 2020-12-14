@@ -1,24 +1,34 @@
-# Таймер
+# Timer
 
-## Завдання
-Задання полягає в реалізації таймера з використанням Qt framework та QML.
+## C++, Qt Quick
 
-Таймер повинен мати наступні функції:
+### Features
+- Start/Pause/Reset Timer
+- Set Time on Timer
+- Notification on Time Out (Alarm Sound)
+- Set Custom Alarm Sound
+- List of Saved Time
+- Material Design
+- Light and Dark Themes
+- Responsive Design
+- Logger
 
-- Встановлення часу таймера.
-- Запуск таймера за допомогою кнопки `Start`.
-- Призупинення відліку часу за допомогою кнопки стоп `Stop`.
-- Скидання відліку за допомогою кнопки `Reset`.
-- Збереження певного моменту часу за допомогою кнопки `Tap` до списку, який буде відображатись на екрані.
-- Після того, як час вийшов має відбутись сповіщення у вигляді деякого звуку.
-- Можливість вибрати звук, який буде програватись після завершення часу. Також має бути звук за замовчуванням.
+### How to build and how to run
+Probably the simplest way to launch the application is to do it from `Qt Creator`.
+However, if this is not an option for you, next I will show how to do it with `command line` and `cmake`
 
-Також має бути реалізоване логування всіх основних дій користувача та таймера (таймер розпочав роботу, призупинився, завершив роботу...).
+**Before we start, please add `Qt bin` location (e.g. `C:\Qt\5.15.1\mingw81_64\bin`) to your `path` environment variable.**
+Otherwise, you will have to manually copy dlls to your build directory, 
+define environment variables in your run configuration (e.g. `QT_QPA_PLATFORM_PLUGIN_PATH`) and configure other nasty stuff
 
-Необхідно реалізувати інтерфейси `Timer` та `Logger` в C++ коді. Користувацький інтерфейс має бути реалізованим на QML. Ні в якому разі не потрібно реалізовувати логіку таймера та логування в QML.
+```
+- cd <project root>
+- mkdir build
+- cd build
+- cmake -G <Generator> ..
+- make
+- Timer
+```
+`cmake -G` - To list all generators
 
-Користувацький інтерфейс повинен 'розтягуватись' при зміні розміру екрану. Також увага буде звертатись на зовнішній вигляд вашої програми, тому не забувайте і про нього.
-
-Для збірки проекту потрібно використовувати `CMake`. Напишите инструкцию how to build и how to run.
-
-___Увага! Заборонено використовувати дизайнер, який доступний в `Qt Creator`, для побудови користувацького інтерфейсу.___
+If `make` doesn't work for you, try `cmake --build build --target Timer` from project root
