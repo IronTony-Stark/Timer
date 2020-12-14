@@ -20,7 +20,7 @@ Q_OBJECT
     Q_PROPERTY(bool isActive READ isActive NOTIFY activeChanged)
 
 public:
-    explicit Timer(QObject* parent = nullptr);
+    explicit Timer(Logger& logger, QObject* parent = nullptr);
 
     Q_INVOKABLE void setInitialTime(const QString& time);
     Q_INVOKABLE void setAlarmSound(const QString& pathToSoundFile);
@@ -43,15 +43,15 @@ private slots:
     void onTimeOut();
 
 private:
+    void updateTime(int remainingTimeMs);
+
     QTimer mTimer;
     QTimer mUpdateTimer;
     QString mTimeOnTimer;
     int mInitialTime = 5000;
     QString mAlarmSoundLocation = "../sound/beep.wav";
     QStringListModel mTimeListModel;
-    Logger mLogger;
-
-    void updateTime(int remainingTimeMs);
+    Logger& mLogger;
 };
 
 

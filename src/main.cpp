@@ -13,12 +13,14 @@ int main(int argc, char* argv[]) {
     QGuiApplication::setOrganizationName("IronTony");
     QGuiApplication::setOrganizationDomain("github.com/IronTony-Stark");
 
-    Timer timer;
+    Logger logger;
+    Timer timer(logger);
     QStringListModel& timeListModel = timer.getTimeListModel();
 
     QQmlApplicationEngine engine;
     engine.addImportPath(":/qml");
 
+    engine.rootContext()->setContextProperty(QStringLiteral("logger"), &logger);
     engine.rootContext()->setContextProperty(QStringLiteral("timer"), &timer);
     engine.rootContext()->setContextProperty(QStringLiteral("timeListModel"), &timeListModel);
 

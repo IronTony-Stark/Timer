@@ -11,8 +11,10 @@
 static const char* const kTimeFormat = "mm:ss:zzz";
 static const int kUpdateInterval = 30;
 
-Timer::Timer(QObject* parent)
-        : QObject(parent), mTimer(this), mUpdateTimer(this) {
+Timer::Timer(Logger& logger, QObject* parent)
+        : QObject(parent), mTimer(this), mUpdateTimer(this), mLogger(logger) {
+    mLogger.logMessage("Create Timer", Logger::INFO);
+
     mTimer.setSingleShot(true);
     mTimer.setInterval(mInitialTime);
     mUpdateTimer.setInterval(kUpdateInterval);
@@ -23,6 +25,8 @@ Timer::Timer(QObject* parent)
 }
 
 void Timer::setInitialTime(const QString& time) {
+    mLogger.logMessage("Set Initial Time: " + time, Logger::INFO);
+
     mInitialTime = QTime::fromString(time, kTimeFormat).msecsSinceStartOfDay();
     mTimer.setInterval(mInitialTime);
     updateTime(mInitialTime);
@@ -30,6 +34,8 @@ void Timer::setInitialTime(const QString& time) {
 }
 
 void Timer::setAlarmSound(const QString& pathToSoundFile) {
+    mLogger.logMessage("Set Alarm Sound: " + pathToSoundFile, Logger::INFO);
+
     const QUrl url(pathToSoundFile);
     if (url.isLocalFile())
         mAlarmSoundLocation = QDir::toNativeSeparators(url.toLocalFile());
@@ -39,12 +45,16 @@ void Timer::setAlarmSound(const QString& pathToSoundFile) {
 }
 
 void Timer::start() {
+    mLogger.logMessage("Start", Logger::INFO);
+
     mTimer.start();
     mUpdateTimer.start();
     emit activeChanged();
 }
 
 void Timer::pause() {
+    mLogger.logMessage("Pause", Logger::INFO);
+
     int remaining = mTimer.remainingTime();
     mTimer.stop();
     mTimer.setInterval(remaining);
@@ -54,12 +64,16 @@ void Timer::pause() {
 }
 
 void Timer::reset() {
+    mLogger.logMessage("Reset", Logger::INFO);
+
     mTimer.setInterval(mInitialTime);
     updateTime(mInitialTime);
     mTimeListModel.setStringList({});
 }
 
 void Timer::tap() {
+    mLogger.logMessage("Tap", Logger::INFO);
+
     if (mTimeListModel.insertRow(0)) {
         QModelIndex index = mTimeListModel.index(0, 0);
         mTimeListModel.setData(index, mTimeOnTimer);
@@ -84,6 +98,8 @@ void Timer::onUpdate() {
 }
 
 void Timer::onTimeOut() {
+    mLogger.logMessage("Time Out", Logger::INFO);
+
     mUpdateTimer.stop();
     QSound::play(mAlarmSoundLocation);
     updateTime(0);

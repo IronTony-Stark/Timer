@@ -7,8 +7,12 @@
 
 
 #include <QString>
+#include <fstream>
+#include <QObject>
 
-class Logger {
+class Logger : public QObject {
+Q_OBJECT
+
 public:
     enum LogLevel {
         INFO,
@@ -17,10 +21,19 @@ public:
         CRITICAL
     };
 
+    Logger();
+    ~Logger() override;
+
     void logMessage(const QString& message, LogLevel level);
+    Q_INVOKABLE void logInfo(const QString& message) {
+        logMessage(message, INFO);
+    }
 
 private:
-    const QString LOG_FILE_NAME = "timer.log";
+    static const char* toString(Logger::LogLevel level);
+
+    const char* const LOG_FILE_NAME = "timer.log";
+    std::fstream mFile;
 };
 
 

@@ -42,6 +42,7 @@ ApplicationWindow {
             anchors.fill: parent
             hoverEnabled: true
             onClicked: {
+                logger.logInfo("Change Theme to " + (Style.isDarkTheme ? "Light" : "Dark"))
                 Style.isDarkTheme = !Style.isDarkTheme
             }
         }
@@ -138,6 +139,7 @@ ApplicationWindow {
                 text: qsTr("Set Initial Time")
                 font.pointSize: Style.fontSizeMedium
                 onClicked: {
+                    logger.logInfo("Open Time Dialog")
                     timeDialog.clear()
                     timeDialog.open()
                 }
@@ -151,6 +153,7 @@ ApplicationWindow {
                 text: qsTr("Set Timeout Sound")
                 font.pointSize: Style.fontSizeMedium
                 onClicked: {
+                    logger.logInfo("Open File Dialog")
                     fileDialog.open()
                 }
             }
