@@ -5,5 +5,11 @@
         <file>qml/TimeListModule/qmldir</file>
         <file>qml/TimeListModule/TimeDelegate.qml</file>
         <file>qml/TimeListModule/TimeList.qml</file>
+        <file>qml/StyleSettings/qmldir</file>
+        <file>qml/StyleSettings/Style.qml</file>
+        <file>qml/ResourceProvider/qmldir</file>
+        <file>qml/ResourceProvider/Resources.qml</file>
+        <file>qml/ResourceProvider/resources/lamp_black.svg</file>
+        <file>qml/ResourceProvider/resources/lamp_white.svg</file>
     </qresource>
 </RCC>

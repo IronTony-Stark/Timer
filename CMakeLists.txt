@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
+find_package(Qt5QuickControls2 REQUIRED)
 
 add_executable(${PROJECT_NAME}
         qml.qrc
@@ -28,4 +29,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::Core
         Qt5::Quick
         Qt5::Multimedia
+        Qt5::QuickControls2
         )

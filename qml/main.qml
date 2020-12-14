@@ -3,14 +3,49 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.2
+import QtQuick.Controls.Material 2.12
 
 import TimeListModule 1.0
+import StyleSettings 1.0
+import ResourceProvider 1.0
 
-Window {
+ApplicationWindow {
+
+    readonly property int resizeThreshold: 600
+
+    minimumWidth: 380
     width: 480
     height: 640
     visible: true
     title: qsTr("Iron Timer")
+
+    Material.theme: Style.theme
+    Material.accent: Material.Red
+    Material.primary: Material.Green
+
+    Image {
+        visible: parent.width > 470
+        width: Math.min(parent.width / 10, 64)
+        height: width
+        mipmap: true
+        scale:  mouseArea.containsMouse ? 1.2 : 1.0
+        source: Resources.iconLamp
+
+        anchors {
+            right: parent.right
+            top: parent.top
+            margins: Style.marginMedium
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: {
+                Style.isDarkTheme = !Style.isDarkTheme
+            }
+        }
+    }
 
     FileDialog {
         id: fileDialog
@@ -37,31 +72,33 @@ Window {
             Layout.alignment: Qt.AlignHCenter
 
             text: timer.timeOnTimer
-            font.pointSize: 48
-            color: "#dc143c"
+            font.pointSize: Style.fontSizeBig
+            color: Material.accent
         }
 
         TimeList {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.leftMargin: 10
-            Layout.rightMargin: 10
+            Layout.leftMargin: Style.marginMedium
+            Layout.rightMargin: Style.marginMedium
             model: timeListModel
         }
 
         GridLayout {
-            columns: parent.width > 600 ? 2 : 1
+            columns: parent.width > resizeThreshold ? 2 : 1
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignBottom
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: 10
+                Layout.margins: Style.marginMedium
                 Layout.columnSpan: parent.columns
 
                 text: timer.isActive ? qsTr("Pause") : qsTr("Start")
-                font.pointSize: 18
-                onClicked: {
+                Material.foreground: "white"
+                Material.background: timer.isActive ? Material.accent : Material.primary
+                font.pointSize: Style.fontSizeMedium
+                onReleased: {
                     if (timer.isActive)
                         timer.pause()
                     else
@@ -71,23 +108,23 @@ Window {
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: 10
+                Layout.margins: Style.marginMedium
 
                 enabled: timer.isActive
                 text: qsTr("Tap")
-                font.pointSize: 18
-                onClicked: {
+                font.pointSize: Style.fontSizeMedium
+                onReleased: {
                     timer.tap()
                 }
             }
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: 10
+                Layout.margins: Style.marginMedium
 
                 enabled: !timer.isActive
                 text: qsTr("Reset")
-                font.pointSize: 18
+                font.pointSize: Style.fontSizeMedium
                 onClicked: {
                     timer.reset()
                 }
@@ -95,11 +132,11 @@ Window {
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: 10
+                Layout.margins: Style.marginMedium
 
                 enabled: !timer.isActive
                 text: qsTr("Set Initial Time")
-                font.pointSize: 18
+                font.pointSize: Style.fontSizeMedium
                 onClicked: {
                     timeDialog.clear()
                     timeDialog.open()
@@ -108,11 +145,11 @@ Window {
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: 10
+                Layout.margins: Style.marginMedium
 
                 enabled: !timer.isActive
                 text: qsTr("Set Timeout Sound")
-                font.pointSize: 18
+                font.pointSize: Style.fontSizeMedium
                 onClicked: {
                     fileDialog.open()
                 }

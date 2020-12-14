@@ -1,14 +1,16 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.12
+
+import StyleSettings 1.0
 
 Dialog {
     id: dialog
     title: qsTr("Set New Time")
-
     width: 300
-    height: 200
+    height: 300
 
     function getTime() {
         let minutes = inputMinutes.text
@@ -33,6 +35,8 @@ Dialog {
     }
 
     contentItem: Rectangle {
+        Material.theme: Style.theme
+        color: Material.background
         anchors.fill: parent
 
         ColumnLayout {
@@ -40,10 +44,11 @@ Dialog {
 
             TextField {
                 id: inputMinutes
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: TextInput.AlignHCenter
                 placeholderText: qsTr("Minutes")
-                font.pointSize: 16
+                font.pointSize: Style.fontSizeMedium
                 validator: IntValidator {
                     bottom: 0; top: 59;
                 }
@@ -51,10 +56,11 @@ Dialog {
 
             TextField {
                 id: inputSeconds
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: TextInput.AlignHCenter
                 placeholderText: qsTr("Seconds")
-                font.pointSize: 16
+                font.pointSize: Style.fontSizeMedium
                 validator: IntValidator {
                     bottom: 0; top: 59;
                 }
@@ -62,10 +68,11 @@ Dialog {
 
             TextField {
                 id: inputMilliseconds
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: TextInput.AlignHCenter
                 placeholderText: qsTr("Milliseconds")
-                font.pointSize: 16
+                font.pointSize: Style.fontSizeMedium
                 validator: IntValidator {
                     bottom: 0; top: 999;
                 }
@@ -77,7 +84,7 @@ Dialog {
 
                 Button {
                     Layout.fillWidth: true
-                    Layout.margins: 10
+                    Layout.margins: Style.marginMedium
                     text: "Set"
                     onClicked: {
                         dialog.accepted()
@@ -87,7 +94,7 @@ Dialog {
 
                 Button {
                     Layout.fillWidth: true
-                    Layout.margins: 10
+                    Layout.margins: Style.marginMedium
                     text: "Cancel"
                     onClicked: {
                         dialog.rejected()
