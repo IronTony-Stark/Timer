@@ -32,3 +32,17 @@ define environment variables in your run configuration (e.g. `QT_QPA_PLATFORM_PL
 `cmake -G` - To list all generators
 
 If `make` doesn't work for you, try `cmake --build build --target Timer` from project root
+
+### Screenshots
+![Light Start](./screenshots/light-start.jpg)
+
+![Light Run](./screenshots/light-run.jpg)
+
+![Light Set Time](./screenshots/light-set-time.jpg)
+
+![Dark Start](./screenshots/dark-start.jpg)
+
+![Dark Run](./screenshots/dark-run.jpg)
+
+![Dark Set Time](./screenshots/dark-set-time.jpg)
+

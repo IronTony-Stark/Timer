@@ -6,7 +6,9 @@
 
 #include "include/logger.h"
 
-static const char* const kDateTimeFormat = "dd-MM-yyyy hh:mm:ss";
+namespace {
+    constexpr const char* const kDateTimeFormat = "dd-MM-yyyy hh:mm:ss";
+}
 
 Logger::Logger() {
     mFile.open(LOG_FILE_NAME, std::fstream::app);

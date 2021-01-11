@@ -49,7 +49,7 @@ private:
     QTimer mUpdateTimer;
     QString mTimeOnTimer;
     int mInitialTime = 5000;
-    QString mAlarmSoundLocation = "../sound/beep.wav";
+    QString mAlarmSoundLocation = ":/sound/beep.wav";
     QStringListModel mTimeListModel;
     Logger& mLogger;
 };
